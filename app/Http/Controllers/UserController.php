@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -12,8 +13,14 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users =  DB::table('users')
+            ->orderBy('status')
+            ->get();
+            // dd($users);
+
         return view('user.index', [
-            'users' => User::all()
+            // 'users' => User::orderBy('status', 'asc')->get()
+            'users' => $users
         ]);
     }
 
