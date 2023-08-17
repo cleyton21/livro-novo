@@ -9,13 +9,13 @@
                         <th>Posto/Grad</th>
                         <th>Nome de Guerra</th>
                         <th>Nome Completo</th>
-                        <th>Seção</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->postograd }}</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
                         <td>61</td>

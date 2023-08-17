@@ -33,9 +33,9 @@
 
         <!-- Nome completo -->
         <div class="mt-4">
-            <x-input-label for="nome_guerra" :value="__('Nome de Guerra')" />
-            <x-text-input id="nome_guerra" class="block mt-1 w-full" type="text" name="nome_guerra" :value="old('nome_guerra')" required autofocus autocomplete="nome_guerra" />
-            <x-input-error :messages="$errors->get('nome_guerra')" class="mt-2" />
+            <x-input-label for="nome_completo" :value="__('Nome Completo')" />
+            <x-text-input id="nome_completo" class="block mt-1 w-full" type="text" name="nome_completo" :value="old('nome_completo')" required autofocus autocomplete="nome_completo" />
+            <x-input-error :messages="$errors->get('nome_completo')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
