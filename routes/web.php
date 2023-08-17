@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\LivroController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +16,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('chirps', ChirpController::class)
+    ->only(['index', 'store', 'edit', 'update'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('user', UserController::class)
+    ->only(['index', 'store', 'edit', 'update'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('livro', LivroController::class)
     ->only(['index', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 

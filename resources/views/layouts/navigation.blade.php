@@ -20,6 +20,14 @@
                 <x-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')">
                     {{ __('Chirps') }}
                 </x-nav-link>
+
+                <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                    {{ __('Usuários') }}
+                </x-nav-link>
+
+                <x-nav-link :href="route('livro.index')" :active="request()->routeIs('livro.index')">
+                    {{ __('Livro') }}
+                </x-nav-link>
             </div>
 
             <!-- Settings Dropdown -->
@@ -49,7 +57,8 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Sair') }}
+                                <i class="fas fa-sign-out-alt"></i>
                             </x-dropdown-link>
                         </form>
                     </x-slot>

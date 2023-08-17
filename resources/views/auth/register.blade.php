@@ -2,11 +2,40 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        {{-- postograd --}}
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="postograd" :value="__('Posto/Graduação')" />
+            <select name="postograd" style="border-color: #e5e7eb" id="postograd" class="form-select block mt-1 w-full rounded-md" required autofocus>
+                <option value="" selected>Selecione seu posto ou graduação</option>
+                <option value="Cel">Cel</option>
+                <option value="Ten Cel">Ten Cel</option>
+                <option value="Maj">Maj</option>
+                <option value="Cap">Cap</option>
+                <option value="1° Ten">1° Ten</option>
+                <option value="2° Ten">2° Ten</option>
+                <option value="Asp">Asp</option>
+                <option value="ST">ST</option>
+                <option value="1º Sgt">1º Sgt</option>
+                <option value="2º Sgt">2º Sgt</option>
+                <option value="3º Sgt">3º Sgt</option>
+                <option value="Cb">Cb</option>
+                <option value="Sd">Sd</option>
+            </select>
+            <x-input-error :messages="$errors->get('postograd')" class="mt-2" />
+        </div>
+
+        <!-- Name -->
+        <div class="mt-4">
+            <x-input-label for="nome_guerra" :value="__('Nome de Guerra')" />
+            <x-text-input id="nome_guerra" class="block mt-1 w-full" type="text" name="nome_guerra" :value="old('nome_guerra')" required autofocus autocomplete="nome_guerra" />
+            <x-input-error :messages="$errors->get('nome_guerra')" class="mt-2" />
+        </div>
+
+        <!-- Nome completo -->
+        <div class="mt-4">
+            <x-input-label for="nome_guerra" :value="__('Nome de Guerra')" />
+            <x-text-input id="nome_guerra" class="block mt-1 w-full" type="text" name="nome_guerra" :value="old('nome_guerra')" required autofocus autocomplete="nome_guerra" />
+            <x-input-error :messages="$errors->get('nome_guerra')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -41,11 +70,11 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                {{ __('Já possui cadastro?') }}
             </a>
 
             <x-primary-button class="ml-4">
-                {{ __('Register') }}
+                {{ __('Cadastrar') }}
             </x-primary-button>
         </div>
     </form>
