@@ -48,16 +48,20 @@
                                     <i class="fas fa-cog"></i>
                                   </button>
                                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item btn-atualizar" 
-                                        id="botao-atualizar" data-id="{{ $user->id }}"
-                                        {{-- href="{{ route('autorizar',['id' => $user->id]) }}"> --}}
+                                    <a class="dropdown-item btn-autorizar" 
+                                        data-id="{{ $user->id }}"
+                                        data-status="{{ $user->status }}"
                                         href="">
+                                        @if ($user->status == 0)
                                         Autorizar
+                                        @else
+                                        Negar Acesso    
+                                        @endif
                                     </a>
                                     <a class="dropdown-item" href="#">Editar</a>
                                   </div>
                                 </div>
-                              </div>
+                            </div>
                         </td>
                     </tr>
                     @php

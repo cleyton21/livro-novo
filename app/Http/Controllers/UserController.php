@@ -27,7 +27,8 @@ class UserController extends Controller
     public function autorizar(Request $request, $id)
     {
         $item = User::find($id);
-        $item->status = 1;
+        $novoStatus = $request->input('novoStatus');
+        $item->status = $novoStatus;
         $item->update();
 
         // $novoStatus = $request->input('status');
