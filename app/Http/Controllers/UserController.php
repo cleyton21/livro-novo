@@ -24,6 +24,35 @@ class UserController extends Controller
         ]);
     }
 
+    public function autorizar(Request $request, $id)
+    {
+        $item = User::find($id);
+        $item->status = 1;
+        $item->update();
+
+        // $novoStatus = $request->input('status');
+
+        // $item->update([
+        //     'status' => 1,
+        // ]);
+
+        return response()->json(['mensagem' => 'Status atualizado com sucesso']);
+    
+
+        // if($item){
+        //     return response()->json([
+        //         'status'=>200,
+        //         'item'=>$item
+        //     ]);
+        // }else{
+        //     return response()->json([
+        //         'status'=>404,
+        //         'message'=>"Campo não encontrado"
+        //     ]);
+        // }
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      */

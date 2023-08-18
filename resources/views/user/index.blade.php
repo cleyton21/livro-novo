@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    <div id="mensagem"></div>
+
     <div class="container" style="padding: 15px;">
         <div class="row">
             <div class="col-md-12">
@@ -38,7 +40,24 @@
                         </td>
                         @endif
                         <td>
-                            <button class="btn btn-sm btn-primary">Primary</button>
+                            {{-- <button class="btn btn-sm btn-primary">Primary</button> --}}
+                            <div class="btn-group" role="group" aria-label="Grupo de botões com dropdown aninhado">
+                                <div class="btn-group" role="group">
+                                  <button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ação
+                                    <i class="fas fa-cog"></i>
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item btn-atualizar" 
+                                        id="botao-atualizar" data-id="{{ $user->id }}"
+                                        {{-- href="{{ route('autorizar',['id' => $user->id]) }}"> --}}
+                                        href="">
+                                        Autorizar
+                                    </a>
+                                    <a class="dropdown-item" href="#">Editar</a>
+                                  </div>
+                                </div>
+                              </div>
                         </td>
                     </tr>
                     @php

@@ -48,6 +48,7 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                            <i class="fas fa-user"></i>
                         </x-dropdown-link>
 
                         <!-- Authentication -->

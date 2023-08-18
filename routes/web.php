@@ -23,6 +23,8 @@ Route::resource('user', UserController::class)
     ->only(['index', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
+Route::get('autorizar/{id}', [UserController::class, 'autorizar']);
+
 Route::resource('livro', LivroController::class)
     ->only(['index', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
