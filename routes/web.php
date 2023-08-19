@@ -13,6 +13,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
+// })->middleware(['auth', 'verified', 'checkUserStatus'])->name('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('chirps', ChirpController::class)

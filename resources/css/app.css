@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+#example tbody td {
+    padding: 5px; /* Espaçamento interno menor */
+    line-height: 1; /* Altura da linha menor */
+    font-size: 15px;
+}

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'postograd',
         'nome_guerra',
         'nome_completo',
+        'perfil',
         'email',
         'password',
     ];

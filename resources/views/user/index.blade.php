@@ -13,6 +13,7 @@
                         <th>Nome de Guerra</th>
                         <th>Nome Completo</th>
                         <th>Email</th>
+                        <th>Perfil</th>
                         <th>Status</th>
                         <th>Ação</th>
                     </tr>
@@ -22,12 +23,13 @@
                         $count = 1;
                     @endphp
                     @foreach ($users as $user)
-                    <tr>
+                    <tr @if($user->status == 2) class="table-success" @endif>
                         <td>{{ $count }}</td>
                         <td>{{ $user->postograd }}</td>
                         <td>{{ $user->nome_guerra }}</td>
                         <td>{{ $user->nome_completo }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->perfil }}</td>
                         @if($user->status == 0)
                         <td style="color: red">
                             Cadastrado
@@ -37,6 +39,12 @@
                         @if($user->status == 1)
                         <td>
                             Autorizado
+                        </td>
+                        @endif
+
+                        @if($user->status == 2)
+                        <td>
+                            Transferido
                         </td>
                         @endif
                         <td>

@@ -35,15 +35,9 @@ $(document).ready(function () {
             success: function(response) {
                 alert(response.mensagem);
                 location.reload();
-                // if(response.status == 404) {
-                //     $("#mensagem").html("");
-                //     $("#mensagem").addClass('alert alert-danger');
-                //     $("#mensagem").text(response.message);
-                // } else {
-                //     $("#mensagem").html("");
-                //     $("#mensagem").addClass('alert alert-success mt-10');
-                //     $("#mensagem").text(response.item);
-                // }
+            }, 
+            error: function (request, status, error) {
+                alert(request.responseText);
             }
         });
 

@@ -13,10 +13,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users =  DB::table('users')
-            ->orderBy('status')
-            ->get();
-            // dd($users);
+        // $users =  DB::table('users')
+        //     ->orderBy('perfil')
+        //     ->orderBy('status')
+        //     ->get();
+
+        $users = User::orderByRaw("CASE WHEN status = 2 THEN 2 ELSE 1 END")
+                ->orderByRaw("CASE WHEN status = 0 THEN 1 WHEN status = 1 THEN 2 END")
+                ->orderByRaw("FIELD(perfil, 'admin', 'secretaria', 'sargenteante', 'usuario comum')")
+                ->get();
+
+
 
         return view('user.index', [
             // 'users' => User::orderBy('status', 'asc')->get()
@@ -31,14 +38,11 @@ class UserController extends Controller
         $item->status = $novoStatus;
         $item->update();
 
-        // $novoStatus = $request->input('status');
+        if ($item->update()) {
+            return response()->json(['mensagem' => 'Status atualizado com sucesso']);
+        }
 
-        // $item->update([
-        //     'status' => 1,
-        // ]);
-
-        return response()->json(['mensagem' => 'Status atualizado com sucesso']);
-    
+        return response()->json(['mensagem' => 'Erro ao atualizar...Tente novamente']);
 
         // if($item){
         //     return response()->json([
