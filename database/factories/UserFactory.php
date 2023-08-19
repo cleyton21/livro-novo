@@ -22,6 +22,7 @@ class UserFactory extends Factory
             'nome_guerra' => fake()->firstName(),
             'nome_completo' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'cel' => fake()->tollFreePhoneNumber(),
             'perfil' => fake()->randomElement($array = array ('Admin', 'Secretaria', 'Sargenteante', 'Usuário Comum')),
             'status' => fake()->randomElement($array = array ('0', '1', '2')),
             'email_verified_at' => now(),

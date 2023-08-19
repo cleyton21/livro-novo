@@ -36,6 +36,7 @@ class RegisteredUserController extends Controller
             'nome_guerra' => ['required', 'string', 'max:255'],
             'nome_completo' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'cel' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -44,6 +45,7 @@ class RegisteredUserController extends Controller
             'nome_guerra' => $request->nome_guerra,
             'nome_completo' => $request->nome_completo,
             'email' => $request->email,
+            'cel' => $request->cel,
             'perfil' => "Usuário Comum",
             'status' => 0,
             'password' => Hash::make($request->password),

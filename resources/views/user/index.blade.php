@@ -12,7 +12,7 @@
                         <th>Posto/Grad</th>
                         <th>Nome de Guerra</th>
                         <th>Nome Completo</th>
-                        <th>Email</th>
+                        <th>Email / Cel</th>
                         <th>Perfil</th>
                         <th>Status</th>
                         <th>Ação</th>
@@ -28,7 +28,12 @@
                         <td>{{ $user->postograd }}</td>
                         <td>{{ $user->nome_guerra }}</td>
                         <td>{{ $user->nome_completo }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td>
+                            {{ $user->email }}
+                            /
+                            <br>
+                            Cel: {{ $user->cel }}
+                        </td>
                         <td>{{ $user->perfil }}</td>
                         @if($user->status == 0)
                         <td style="color: red">
@@ -48,24 +53,39 @@
                         </td>
                         @endif
                         <td>
-                            {{-- <button class="btn btn-sm btn-primary">Primary</button> --}}
-                            <div class="btn-group" role="group" aria-label="Grupo de botões com dropdown aninhado">
+                            <div class="btn-group" role="group">
                                 <div class="btn-group" role="group">
-                                  <button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <button {{ $user->status == 2 ? 'disabled' : '' }} class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Ação
                                     <i class="fas fa-cog"></i>
                                   </button>
                                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                    @if($user->status == 0)
                                     <a class="dropdown-item btn-autorizar" 
                                         data-id="{{ $user->id }}"
-                                        data-status="{{ $user->status }}"
+                                        data-status="1"
                                         href="">
-                                        @if ($user->status == 0)
                                         Autorizar
-                                        @else
-                                        Negar Acesso    
-                                        @endif
                                     </a>
+                                    @endif
+
+                                    @if($user->status == 1)
+                                    <a class="dropdown-item btn-autorizar" 
+                                        data-id="{{ $user->id }}"
+                                        data-status="0"
+                                        href="">
+                                        Negar Acesso    
+                                    </a>
+
+                                    <a class="dropdown-item btn-autorizar" 
+                                        data-id="{{ $user->id }}"
+                                        data-status="2"
+                                        href="">
+                                        Transferido    
+                                    </a>
+                                    @endif
+
                                     <a class="dropdown-item" href="#">Editar</a>
                                   </div>
                                 </div>

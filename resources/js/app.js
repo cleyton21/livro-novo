@@ -20,12 +20,14 @@ $(document).ready(function () {
        
         var id = $(this).data('id');
         var status = $(this).data('status');
-        if(status == 0){
-            var novoStatus = 1;
-        }else{
-            var novoStatus = 0;
+        
+        var novoStatus = status;
+        
+        if(status == 2) {
+            if(!confirm("Tem certeza que deseja mudar o status para transferido? Essa ação é irreversível e o usuário não poderá ser deletado do sistema porém seus dados ficarão preservados.")){
+                return;
+            }
         }
-        // console.log(id);
 
         $.ajax({
             type: "GET",
@@ -36,8 +38,8 @@ $(document).ready(function () {
                 alert(response.mensagem);
                 location.reload();
             }, 
-            error: function (request, status, error) {
-                alert(request.responseText);
+            error: function (response) {
+                alert(response.mensagem);
             }
         });
 

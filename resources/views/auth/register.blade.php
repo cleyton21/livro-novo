@@ -41,8 +41,15 @@
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+         <!-- Cel -->
+         <div class="mt-4">
+            <x-input-label for="cel" :value="__('Celular')" />
+            <x-text-input id="cel" class="block mt-1 w-full" type="tel" name="cel" :value="old('cel')" required autocomplete="cel" />
+            <x-input-error :messages="$errors->get('cel')" class="mt-2" />
         </div>
 
         <!-- Password -->
