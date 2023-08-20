@@ -27,7 +27,7 @@ Route::resource('user', UserController::class)
 Route::get('/user/autorizar/{id}', [UserController::class, 'autorizar']);
 
 Route::resource('livro', LivroController::class)
-    ->only(['index', 'store', 'edit', 'update'])
+    ->only(['index', 'store', 'create', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

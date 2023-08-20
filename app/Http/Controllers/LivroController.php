@@ -25,7 +25,7 @@ class LivroController extends Controller
      */
     public function create()
     {
-        //
+        return view('livro.create');
     }
 
     /**
@@ -33,7 +33,27 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->method());
+        // Recebe os dados do AJAX
+        $data = [
+            'dt_ini' => $request->input('dt_ini'),
+            'dt_end' => $request->input('dt_end'),
+            'texto' => $request->input('texto'),
+            'usuario_id' => auth()->id(), // Obtém o ID do usuário autenticado
+        ];
+
+        $livro = Livro::create($data);
+
+        if ($livro) {
+            // Armazene uma mensagem de sucesso na sessão
+            session()->flash('success', 'Livro gravado com sucesso!');
+             // Redirecione para a rota de índice dos livros
+            return redirect()->route('livro.index');
+
+        } else {
+            // Armazene uma mensagem de erro na sessão
+            session()->flash('error', 'Erro ao gravar o livro. Tente novamente mais tarde.');
+        }
     }
 
     /**

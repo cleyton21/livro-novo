@@ -6,13 +6,29 @@
                 
                 <table id="table-livro" class="table table-striped table-hover table-bordered" style="width:100%">
                 <thead>
+
                  <a class="btn btn-success btn-block mb-10" role="button"
-                    href=""
+                    href="{{ route('livro.create') }}"
                     >
                     Preencher o Livro
                     <i class="fas fa-pencil-alt"></i>
                     <i class="fas fa-book"></i>
                  </a>
+                 
+                 <div class="text-center">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }} <i class="fas fa-thumbs-up"></i>
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }} <i class="fas fa-thumbs-down"></i>
+                        </div>
+                    @endif
+                </div>
+
                     <tr>
                         <th>Ord</th>
                         <th>Usuário</th>

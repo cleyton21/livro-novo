@@ -19,6 +19,7 @@ var table = new DataTable('#table-livro', {
     },
 });
 
+// mudança de status de usuario
 $(document).ready(function () {
 
     $('#table-user').on('click', '.btn-autorizar', function (e) {
@@ -51,3 +52,31 @@ $(document).ready(function () {
 
     });
 });
+
+// cadastro de usuario
+// $(document).ready(function () {
+//     $('form').on('click', '#gravar-livro', function (e) {
+//         e.preventDefault();
+//         // alert('teste');
+//         var data = {
+//             dt_ini: $('#dt_ini').val(),
+//             dt_end: $('#dt_end').val(),
+//             texto: $('#texto').val(),
+//         };
+
+//         $.ajax({
+//             type: 'POST',
+//             url: "{{ route('livro.store') }}", // Rota que criamos
+//             data: data,
+//             dataType: 'json',
+//             success: function(response) {
+//                 alert(response.message);
+//                 // Redireciona para a URL especificada na resposta
+//                 window.location.href = response.redirect_url;
+//             },
+//             error: function(xhr, status, error) {
+//                 console.log(error);
+//             }
+//         });
+//     });
+// });
