@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('livros', function (Blueprint $table) {
             $table->id();
+            $table->date('dt_ini');
+            $table->date('dt_end');
+            $table->string('texto');
+            $table->unsignedBigInteger('usuario_id');
+            // Adicione outras colunas de livro aqui
             $table->timestamps();
+
+            $table->foreign('usuario_id')->references('id')->on('users');
         });
     }
 

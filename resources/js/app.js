@@ -7,7 +7,13 @@ window.Alpine = Alpine;
 Alpine.start();
 
 // tradução do datatable
-var table = new DataTable('#example', {
+var table = new DataTable('#table-user', {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+    },
+});
+
+var table = new DataTable('#table-livro', {
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
     },
@@ -15,7 +21,7 @@ var table = new DataTable('#example', {
 
 $(document).ready(function () {
 
-    $('#example').on('click', '.btn-autorizar', function (e) {
+    $('#table-user').on('click', '.btn-autorizar', function (e) {
         e.preventDefault();
        
         var id = $(this).data('id');

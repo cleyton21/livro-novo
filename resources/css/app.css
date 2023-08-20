@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 
-#example tbody td {
+#table-livro tbody td {
+    padding: 5px; /* Espaçamento interno menor */
+    line-height: 2; /* Altura da linha menor */
+    font-size: 15px;
+}
+
+#table-user tbody td {
     padding: 5px; /* Espaçamento interno menor */
     line-height: 1; /* Altura da linha menor */
     font-size: 15px;

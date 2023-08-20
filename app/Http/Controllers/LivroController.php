@@ -12,7 +12,12 @@ class LivroController extends Controller
      */
     public function index()
     {
-        return view('livro.index');
+        $livros = Livro::orderBy('dt_ini', 'desc')
+                ->get();
+
+        return view('livro.index', [
+            'livros' => $livros
+        ]);
     }
 
     /**

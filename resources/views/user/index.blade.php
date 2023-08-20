@@ -5,7 +5,7 @@
     <div class="container" style="padding: 15px;">
         <div class="row">
             <div class="col-md-12">
-            <table id="example" class="table table-striped table-hover table-bordered" style="width:100%">
+            <table id="table-user" class="table table-striped table-hover table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>Ord</th>
@@ -26,7 +26,11 @@
                     <tr @if($user->status == 2) class="table-success" @endif>
                         <td>{{ $count }}</td>
                         <td>{{ $user->postograd }}</td>
-                        <td>{{ $user->nome_guerra }}</td>
+                        <td>{{ $user->nome_guerra }}
+                            @if ($user->livros->isNotEmpty())
+                                <i class="fas fa-star text-warning" title="Este usuário possui um ou mais livros preenchidos"></i>
+                            @endif
+                        </td>
                         <td>{{ $user->nome_completo }}</td>
                         <td>
                             {{ $user->email }}
