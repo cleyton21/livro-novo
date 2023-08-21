@@ -103,6 +103,19 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $livro = User::findOrFail($id);
+        $del = $livro->delete();
+
+        if($del) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Usuário excluído com sucesso!',
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Erro ao excluir... Tente novamente!!!',
+        ]);
     }
 }

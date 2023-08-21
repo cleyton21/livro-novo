@@ -21,7 +21,7 @@ Route::resource('chirps', ChirpController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('user', UserController::class)
-    ->only(['index', 'store', 'edit', 'update'])
+    ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::get('/user/autorizar/{id}', [UserController::class, 'autorizar']);
@@ -29,6 +29,8 @@ Route::get('/user/autorizar/{id}', [UserController::class, 'autorizar']);
 Route::resource('livro', LivroController::class)
     ->only(['index', 'store', 'create', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

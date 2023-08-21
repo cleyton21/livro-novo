@@ -7,6 +7,13 @@
             <div class="col-md-12">
             <table id="table-user" class="table table-striped table-hover table-bordered" style="width:100%">
                 <thead>
+                    <a class="btn btn-primary btn-block mb-10" role="button"
+                        href=""
+                        >
+                        Adicionar Usuário
+                        <i class="fas fa-user-plus"></i>
+                    </a>
+
                     <tr>
                         <th>Ord</th>
                         <th>Posto/Grad</th>
@@ -41,19 +48,19 @@
                         <td>{{ $user->perfil }}</td>
                         @if($user->status == 0)
                         <td style="color: red">
-                            Cadastrado
+                            <i>Cadastrado</i>
                         </td>
                         @endif
 
                         @if($user->status == 1)
                         <td>
-                            Autorizado
+                            <i>Autorizado</i>
                         </td>
                         @endif
 
                         @if($user->status == 2)
                         <td>
-                            Transferido
+                            <i>Transferido</i>
                         </td>
                         @endif
                         <td>
@@ -89,11 +96,15 @@
                                         Transferido    
                                     </a>
                                     @endif
-
                                     <a class="dropdown-item" href="#">Editar</a>
                                   </div>
                                 </div>
                             </div>
+
+                            <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user" data-id="{{ $user->id }}">
+                                Excluir
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                     @php

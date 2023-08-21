@@ -53,30 +53,39 @@ $(document).ready(function () {
     });
 });
 
-// cadastro de usuario
-// $(document).ready(function () {
-//     $('form').on('click', '#gravar-livro', function (e) {
-//         e.preventDefault();
-//         // alert('teste');
-//         var data = {
-//             dt_ini: $('#dt_ini').val(),
-//             dt_end: $('#dt_end').val(),
-//             texto: $('#texto').val(),
-//         };
+$(document).ready(function () {
+    $('.delete-user').click(function (e) {
+        e.preventDefault();
 
-//         $.ajax({
-//             type: 'POST',
-//             url: "{{ route('livro.store') }}", // Rota que criamos
-//             data: data,
-//             dataType: 'json',
-//             success: function(response) {
-//                 alert(response.message);
-//                 // Redireciona para a URL especificada na resposta
-//                 window.location.href = response.redirect_url;
-//             },
-//             error: function(xhr, status, error) {
-//                 console.log(error);
-//             }
-//         });
-//     });
-// });
+        // var livroId = $(this).data('id');
+        var url = $(this).attr('href');
+
+        if (confirm('Tem certeza que deseja excluir o usuário?')) {
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // alert(response.message);
+                    // location.reload();
+
+                    if (response.success === true) {
+                        // Exibe mensagem de sucesso com alert
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        // Exibe mensagem de erro com alert
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // alert('Erro ao excluir o usuário: ' + error);
+                    alert('Erro ao excluir o usuário: procure um administrador, provavelmente o mesmo já preencheu o livro e não é possível excluir seus dados');
+                }
+            });
+        }
+    });
+});

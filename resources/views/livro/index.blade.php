@@ -36,7 +36,6 @@
                         <th>Data Final</th>
                         <th>Nrº Dias</th>
                         <th>Motivo</th>
-                        <th>Salary</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,8 +49,14 @@
                         <td>{{ \Carbon\Carbon::parse($livro->dt_ini)->format('d/m/Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($livro->dt_end)->format('d/m/Y') }}</td>
                         <td style="text-align: center">{{ \Carbon\Carbon::parse($livro->dt_end)->diffInDays($livro->dt_ini) }}</td>
-                        <td>{{ Str::limit($livro->texto, 50) }}</td>
-                        <td>$320,800</td>
+                        <td>
+                            {{ Str::limit($livro->texto, 50) }}
+                            @if (strlen($livro->texto) > 50)
+                                <a href="#" data-toggle="modal" data-target="#myModal">
+                                    + Leia mais
+                                </a>
+                            @endif
+                        </td>
                     </tr>
                     @php
                     $count++
@@ -62,5 +67,23 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Motivo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-content">
+                        {{ $livro->texto }}
+                    </div> <!-- Usamos uma div em vez de um parágrafo -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
 
 </x-app-layout>
