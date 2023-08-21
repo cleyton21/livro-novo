@@ -45,7 +45,7 @@
                     @foreach ($livros as $livro)
                     <tr>
                         <td>{{ $count }}</td>
-                        <td>{{ $livro->usuario->postograd . " " . $livro->usuario->nome_guerra }}</td>
+                        <td>{{ $livro->users->postograd . " " . $livro->users->nome_guerra }}</td>
                         <td>{{ \Carbon\Carbon::parse($livro->dt_ini)->format('d/m/Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($livro->dt_end)->format('d/m/Y') }}</td>
                         <td style="text-align: center">{{ \Carbon\Carbon::parse($livro->dt_end)->diffInDays($livro->dt_ini) }}</td>

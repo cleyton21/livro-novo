@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Livro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LivroController extends Controller
 {
@@ -12,8 +13,11 @@ class LivroController extends Controller
      */
     public function index()
     {
-        $livros = Livro::orderBy('dt_ini', 'desc')
-                ->get();
+        // $livros = Livro::orderBy('dt_ini', 'desc')
+        //         ->get();
+        $livros = Livro::with('users')  // Carrega os usuários relacionados
+                    ->orderBy('dt_ini', 'desc')
+                    ->get();
 
         return view('livro.index', [
             'livros' => $livros
@@ -33,7 +37,23 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->method());
+        $messages = [
+            'dt_ini.required' => 'Erro: A data inicial é obrigatória.',
+            'dt_end.required' => 'Erro: A data final é obrigatória.',
+            'dt_end.after' => 'Erro: A data final deve ser maior que a data inicial.',
+            'texto.required' => 'Erro: O campo de texto é obrigatório.',
+        ];
+    
+        $validator = Validator::make($request->all(), [
+            'dt_ini' => 'required|date',
+            'dt_end' => 'required|date|after:dt_ini',
+            'texto' => 'required|string',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
         // Recebe os dados do AJAX
         $data = [
             'dt_ini' => $request->input('dt_ini'),

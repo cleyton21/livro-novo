@@ -11,9 +11,13 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <div class="text-center">
-                        @if(session('error'))
+                        @if($errors->any())
                             <div class="alert alert-danger">
-                                {{ session('error') }} <i class="fas fa-thumbs-down"></i>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }} <i class="fas fa-thumbs-down"></i></li>
+                                    @endforeach
+                                </ul>
                             </div>
                         @endif
                     </div>
@@ -35,10 +39,6 @@
                             <x-input-error :messages="$errors->updatePassword->get('dt_end')" class="mt-2" />
                         </div>
                 
-                        {{-- <div class="col-md-4">
-                            <x-input-label for="dias" :value="__('Nr Dias')" />
-                            <x-text-input id="dias" name="dias" type="text" class="mt-1 block w-full" readonly/>
-                        </div> --}}
                         </div>
                 
                         <div>

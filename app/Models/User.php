@@ -13,6 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users'; // Nome da tabela se não seguir o padrão de nome do Laravel
+
     /**
      * The attributes that are mass assignable.
      *

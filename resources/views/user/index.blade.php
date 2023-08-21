@@ -29,87 +29,89 @@
                     @php
                         $count = 1;
                     @endphp
-                    @foreach ($users as $user)
-                    <tr @if($user->status == 2) class="table-success" @endif>
-                        <td>{{ $count }}</td>
-                        <td>{{ $user->postograd }}</td>
-                        <td>{{ $user->nome_guerra }}
-                            @if ($user->livros->isNotEmpty())
-                                <i class="fas fa-star text-warning" title="Este usuário possui um ou mais livros preenchidos"></i>
+                    @foreach ($usersChunked as $users)
+                        @foreach ($users as $user)
+                        <tr @if($user->status == 2) class="table-success" @endif>
+                            <td>{{ $count }}</td>
+                            <td>{{ $user->postograd }}</td>
+                            <td>{{ $user->nome_guerra }}
+                                @if ($user->livros->isNotEmpty())
+                                    <i class="fas fa-star text-warning" title="Este usuário possui um ou mais livros preenchidos"></i>
+                                @endif
+                            </td>
+                            <td>{{ $user->nome_completo }}</td>
+                            <td>
+                                {{ $user->email }}
+                                /
+                                <br>
+                                Cel: {{ $user->cel }}
+                            </td>
+                            <td>{{ $user->perfil }}</td>
+                            @if($user->status == 0)
+                            <td style="color: red">
+                                <i>Cadastrado</i>
+                            </td>
                             @endif
-                        </td>
-                        <td>{{ $user->nome_completo }}</td>
-                        <td>
-                            {{ $user->email }}
-                            /
-                            <br>
-                            Cel: {{ $user->cel }}
-                        </td>
-                        <td>{{ $user->perfil }}</td>
-                        @if($user->status == 0)
-                        <td style="color: red">
-                            <i>Cadastrado</i>
-                        </td>
-                        @endif
 
-                        @if($user->status == 1)
-                        <td>
-                            <i>Autorizado</i>
-                        </td>
-                        @endif
+                            @if($user->status == 1)
+                            <td>
+                                <i>Autorizado</i>
+                            </td>
+                            @endif
 
-                        @if($user->status == 2)
-                        <td>
-                            <i>Transferido</i>
-                        </td>
-                        @endif
-                        <td>
-                            <div class="btn-group" role="group">
+                            @if($user->status == 2)
+                            <td>
+                                <i>Transferido</i>
+                            </td>
+                            @endif
+                            <td>
                                 <div class="btn-group" role="group">
-                                  <button {{ $user->status == 2 ? 'disabled' : '' }} class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Ação
-                                    <i class="fas fa-cog"></i>
-                                  </button>
-                                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <div class="btn-group" role="group">
+                                    <button {{ $user->status == 2 ? 'disabled' : '' }} class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Ação
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-                                    @if($user->status == 0)
-                                    <a class="dropdown-item btn-autorizar" 
-                                        data-id="{{ $user->id }}"
-                                        data-status="1"
-                                        href="">
-                                        Autorizar
-                                    </a>
-                                    @endif
+                                        @if($user->status == 0)
+                                        <a class="dropdown-item btn-autorizar" 
+                                            data-id="{{ $user->id }}"
+                                            data-status="1"
+                                            href="">
+                                            Autorizar
+                                        </a>
+                                        @endif
 
-                                    @if($user->status == 1)
-                                    <a class="dropdown-item btn-autorizar" 
-                                        data-id="{{ $user->id }}"
-                                        data-status="0"
-                                        href="">
-                                        Negar Acesso    
-                                    </a>
+                                        @if($user->status == 1)
+                                        <a class="dropdown-item btn-autorizar" 
+                                            data-id="{{ $user->id }}"
+                                            data-status="0"
+                                            href="">
+                                            Negar Acesso    
+                                        </a>
 
-                                    <a class="dropdown-item btn-autorizar" 
-                                        data-id="{{ $user->id }}"
-                                        data-status="2"
-                                        href="">
-                                        Transferido    
-                                    </a>
-                                    @endif
-                                    <a class="dropdown-item" href="#">Editar</a>
-                                  </div>
+                                        <a class="dropdown-item btn-autorizar" 
+                                            data-id="{{ $user->id }}"
+                                            data-status="2"
+                                            href="">
+                                            Transferido    
+                                        </a>
+                                        @endif
+                                        <a class="dropdown-item" href="#">Editar</a>
+                                    </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user" data-id="{{ $user->id }}">
-                                Excluir
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    @php
-                    $count++
-                    @endphp
+                                <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user" data-id="{{ $user->id }}">
+                                    Excluir
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @php
+                        $count++
+                        @endphp
+                        @endforeach
                     @endforeach
                 </tbody>
             </table>

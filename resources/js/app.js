@@ -53,6 +53,7 @@ $(document).ready(function () {
     });
 });
 
+// deletar usuario
 $(document).ready(function () {
     $('.delete-user').click(function (e) {
         e.preventDefault();

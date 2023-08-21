@@ -13,22 +13,26 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users =  DB::table('users')
-        //     ->orderBy('perfil')
-        //     ->orderBy('status')
-        //     ->get();
+        $usersChunked = [];
 
-        $users = User::orderByRaw("CASE WHEN status = 2 THEN 2 ELSE 1 END")
-                ->orderByRaw("CASE WHEN status = 0 THEN 1 WHEN status = 1 THEN 2 END")
-                ->orderByRaw("FIELD(perfil, 'admin', 'secretaria', 'sargenteante', 'usuario comum')")
-                ->get();
+        User::orderByRaw("CASE WHEN status = 2 THEN 2 ELSE 1 END")
+            ->orderByRaw("CASE WHEN status = 0 THEN 1 WHEN status = 1 THEN 2 END")
+            ->orderByRaw("FIELD(perfil, 'admin', 'secretaria', 'sargenteante', 'usuario comum')")
+            ->chunk(50, function ($users) use (&$usersChunked) {
+                $usersChunked[] = $users;
+            });
 
+        return view('user.index', ['usersChunked' => $usersChunked]);
 
+        // $users = User::orderByRaw("CASE WHEN status = 2 THEN 2 ELSE 1 END")
+        //         ->orderByRaw("CASE WHEN status = 0 THEN 1 WHEN status = 1 THEN 2 END")
+        //         ->orderByRaw("FIELD(perfil, 'admin', 'secretaria', 'sargenteante', 'usuario comum')")
+        //         ->get();
 
-        return view('user.index', [
-            // 'users' => User::orderBy('status', 'asc')->get()
-            'users' => $users
-        ]);
+        // return view('user.index', [
+        //     // 'users' => User::orderBy('status', 'asc')->get()
+        //     'users' => $users
+        // ]);
     }
 
     public function autorizar(Request $request, $id)
