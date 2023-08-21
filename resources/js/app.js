@@ -19,6 +19,38 @@ var table = new DataTable('#table-livro', {
     },
 });
 
+// mudança de perfil de usuario
+$(document).ready(function () {
+
+    $('#table-user').on('click', '.btn-mudar-perfil', function (e) {
+        e.preventDefault();
+       
+        var id = $(this).data('id');
+        var perfil = $(this).data('perfil');
+
+        var novoPerfil = perfil;
+
+        if(!confirm("Tem certeza que deseja mudar o perfil deste usuário.")){
+            return;
+        }
+        
+        $.ajax({
+            type: "GET",
+            url: "/user/mudarperfil/"+id,
+            data: {"id": id, "novoPerfil": novoPerfil},
+            dataType: "json",
+            success: function(response) {
+                alert(response.mensagem);
+                location.reload();
+            }, 
+            error: function (response) {
+                alert(response.mensagem);
+            }
+        });
+
+    });
+});
+
 // mudança de status de usuario
 $(document).ready(function () {
 

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -32,7 +33,13 @@ class RegisteredUserController extends Controller
     {   
         // dd($request);
         $request->validate([
-            'postograd' => ['required', 'string', 'max:20'],
+            'postograd' => [
+                'required',
+                Rule::unique('users')->where(function ($query) use ($request) {
+                    return $query->where('postograd', $request->postograd)
+                                 ->where('nome_guerra', $request->nome_guerra);
+                }),
+            ],
             'nome_guerra' => ['required', 'string', 'max:255'],
             'nome_completo' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],

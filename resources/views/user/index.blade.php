@@ -5,10 +5,29 @@
     <div class="container" style="padding: 15px;">
         <div class="row">
             <div class="col-md-12">
+
+                <div class="text-center">
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }} <i class="fas fa-thumbs-up"></i>
+                </div>
+                @endif
+                
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }} <i class="fas fa-thumbs-down"></i></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif   
+                </div>         
+
             <table id="table-user" class="table table-striped table-hover table-bordered" style="width:100%">
                 <thead>
                     <a class="btn btn-primary btn-block mb-10" role="button"
-                        href=""
+                        href="{{ route('user.create') }}"
                         >
                         Adicionar Usuário
                         <i class="fas fa-user-plus"></i>
@@ -72,6 +91,30 @@
                                         <i class="fas fa-cog"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                        {{-- mudança de perfil --}}
+                                        @php
+                                        $profile = Auth()->user()->perfil;
+                                        $profilesToOptions = [
+                                            'Admin' => ['Admin', 'Secretaria', 'Sargenteante', 'Usuário Comum'],
+                                            'Secretaria' => ['Sargenteante', 'Usuário Comum'],
+                                            'Sargenteante' => ['Usuário Comum'],
+                                            'Usuário Comum' => []
+                                        ];
+                                        @endphp
+
+                                        @foreach ($profilesToOptions[$profile] as $option)
+                                        @if ($option != $user->perfil)
+                                            <a class="dropdown-item btn-mudar-perfil" 
+                                                data-id="{{ $user->id }}"
+                                                data-perfil="{{ $option }}"
+                                                href="">
+                                                Mudar para {{ $option }}
+                                            </a>
+                                        @endif
+                                        @endforeach
+                                        {{-- fim --}}
+
 
                                         @if($user->status == 0)
                                         <a class="dropdown-item btn-autorizar" 

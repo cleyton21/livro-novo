@@ -13,18 +13,19 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-// })->middleware(['auth', 'verified', 'checkUserStatus'])->name('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'checkUserStatus'])->name('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('user', UserController::class)
-    ->only(['index', 'store', 'edit', 'update', 'destroy'])
+    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::get('/user/autorizar/{id}', [UserController::class, 'autorizar']);
+Route::get('/user/mudarperfil/{id}', [UserController::class, 'mudarPerfil']);
 
 Route::resource('livro', LivroController::class)
     ->only(['index', 'store', 'create', 'edit', 'update'])
