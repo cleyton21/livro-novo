@@ -93,6 +93,11 @@ $(document).ready(function () {
         // var livroId = $(this).data('id');
         var url = $(this).attr('href');
 
+        // Verifica se o link possui a classe 'disabled-link'
+        if ($(this).hasClass('disabled-link')) {
+            e.preventDefault(); // Impede que o link seja clicado
+        }
+
         if (confirm('Tem certeza que deseja excluir o usuário?')) {
             $.ajax({
                 type: 'DELETE',
@@ -122,3 +127,16 @@ $(document).ready(function () {
         }
     });
 });
+
+// desabilitar botao excluir do usuario
+// $(document).ready(function () {
+//     $('.delete-user').click(function (e) {
+//         // Verifica se o link possui a classe 'disabled-link'
+//         if ($(this).hasClass('disabled-link')) {
+//             e.preventDefault(); // Impede que o link seja clicado
+//         } else if (confirm('Tem certeza que deseja excluir o usuário?')) {
+//             // Restante do código da sua solicitação Ajax
+//             // ...
+//         }
+//     });
+// });

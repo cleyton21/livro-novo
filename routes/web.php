@@ -21,11 +21,12 @@ Route::resource('chirps', ChirpController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('user', UserController::class)
-    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+    ->only(['index', 'create', 'store', 'edit', 'update', 'delete', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::get('/user/autorizar/{id}', [UserController::class, 'autorizar']);
 Route::get('/user/mudarperfil/{id}', [UserController::class, 'mudarPerfil']);
+
 
 Route::resource('livro', LivroController::class)
     ->only(['index', 'store', 'create', 'edit', 'update'])

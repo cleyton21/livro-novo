@@ -28,9 +28,41 @@ class UserController extends Controller
 
     }
 
+    // public function autorizar(Request $request, $id)
+    // {
+    //     $item = User::find($id);
+    //     $novoStatus = $request->input('novoStatus');
+    //     $item->status = $novoStatus;
+    //     $item->update();
+
+    //     if ($item->update()) {
+    //         return response()->json(['mensagem' => 'Status atualizado com sucesso']);
+    //     }
+
+    //     return response()->json(['mensagem' => 'Erro ao atualizar...Tente novamente']);
+
+    // }
+
     public function autorizar(Request $request, $id)
     {
         $item = User::find($id);
+
+        // Verifica se o usuário está tentando mudar o próprio status
+        if (auth()->user()->id === $item->id) {
+            return response()->json([
+                'success' => false,
+                'mensagem' => 'Você não pode mudar o seu próprio status',
+            ]);
+        }
+
+        // Verifica se o usuário está tentando mudar o último status com valor 1
+        if ($item->status === 1 && User::where('status', 1)->count() === 1) {
+            return response()->json([
+                'success' => false,
+                'mensagem' => 'Não é permitido Negar o acesso do último usuário autorizado',
+            ]);
+        }
+
         $novoStatus = $request->input('novoStatus');
         $item->status = $novoStatus;
         $item->update();
@@ -39,23 +71,32 @@ class UserController extends Controller
             return response()->json(['mensagem' => 'Status atualizado com sucesso']);
         }
 
-        return response()->json(['mensagem' => 'Erro ao atualizar...Tente novamente']);
-
+        return response()->json(['mensagem' => 'Erro ao atualizar... Tente novamente']);
     }
+
 
     public function mudarPerfil(Request $request, $id)
     {
         $item = User::find($id);
+
+        // Verifica se o ID do usuário sendo alterado é igual ao ID do usuário logado
+        if ($item->id === Auth::id()) {
+            return response()->json(['mensagem' => 'Não é permitido alterar o próprio perfil']);
+        }
+
+        // Verifica se o usuário é o último admin
+        if ($item->perfil === 'Admin' && User::where('perfil', 'Admin')->count() === 1) {
+            return response()->json(['mensagem' => 'Não é permitido alterar o último perfil de admin']);
+        }
+
         $novoPerfil = $request->input('novoPerfil');
         $item->perfil = $novoPerfil;
-        $item->update();
 
         if ($item->update()) {
             return response()->json(['mensagem' => 'Perfil atualizado com sucesso']);
         }
 
-        return response()->json(['mensagem' => 'Erro ao atualizar...Tente novamente']);
-
+        return response()->json(['mensagem' => 'Erro ao atualizar... Tente novamente']);
     }
 
     /**
@@ -165,19 +206,36 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $livro = User::findOrFail($id);
-        $del = $livro->delete();
-
-        if($del) {
+        $user = User::findOrFail($id);
+    
+        // Verifica se o usuário está tentando excluir a si mesmo
+        if ($user->id === auth()->user()->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Você não pode excluir a si mesmo',
+            ]);
+        }
+    
+        // Verifica se o usuário é o último admin
+        if ($user->perfil === 'Admin' && User::where('perfil', 'Admin')->count() === 1) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Não é permitido excluir o último admin do sistema',
+            ]);
+        }
+    
+        if ($user->delete()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Usuário excluído com sucesso!',
             ]);
         }
-
+    
         return response()->json([
             'success' => false,
-            'message' => 'Erro ao excluir... Tente novamente!!!',
+            'message' => 'Erro ao excluir... Tente novamente!',
         ]);
     }
+    
+
 }

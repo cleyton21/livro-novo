@@ -14,3 +14,8 @@
     line-height: 1; /* Altura da linha menor */
     font-size: 15px;
 }
+
+.disabled-link {
+    pointer-events: none; /* Impede que o link seja clicado */
+    opacity: 0.6; /* Opacidade reduzida para indicar visualmente que o link está desabilitado */
+}

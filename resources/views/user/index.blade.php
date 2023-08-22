@@ -145,10 +145,16 @@
                                     </div>
                                 </div>
 
-                                <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user" data-id="{{ $user->id }}">
+                                {{-- <a disabled href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user" data-id="{{ $user->id }}">
+                                    Excluir
+                                    <i class="fas fa-trash"></i>
+                                </a> --}}
+
+                                <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user @if($user->status == 2) disabled-link @endif" data-id="{{ $user->id }}">
                                     Excluir
                                     <i class="fas fa-trash"></i>
                                 </a>
+                                
                             </td>
                         </tr>
                         @php
