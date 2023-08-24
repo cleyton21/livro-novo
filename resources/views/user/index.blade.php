@@ -3,6 +3,41 @@
     <div id="mensagem"></div>
 
     <div class="container" style="padding: 15px;">
+
+       <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Troca de Senha</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulário para a troca de senha -->
+                        <form id="modal-form" method="post">
+
+                            @csrf
+
+                            <div class="form-group">
+                                <label for="nova_senha">Nova Senha</label>
+                                <input type="password" class="form-control" id="nova_senha" name="nova_senha" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmar_senha">Confirmar Nova Senha</label>
+                                <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary" id="salvarSenhaBtn">Salvar Senha</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
 
@@ -140,15 +175,19 @@
                                             Transferido    
                                         </a>
                                         @endif
-                                        <a class="dropdown-item" href="#">Editar</a>
+
+                                       <!-- Botão que aciona o modal -->
+                                       <a class="dropdown-item open-modal-button" 
+                                       data-id="{{ $user->id }}"
+                                       data-toggle="modal" 
+                                       href=""
+                                       data-target="#myModal">
+                                       Trocar Senha
+                                        </a>
+
                                     </div>
                                     </div>
                                 </div>
-
-                                {{-- <a disabled href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user" data-id="{{ $user->id }}">
-                                    Excluir
-                                    <i class="fas fa-trash"></i>
-                                </a> --}}
 
                                 <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user @if($user->status == 2) disabled-link @endif" data-id="{{ $user->id }}">
                                     Excluir
@@ -160,10 +199,25 @@
                         @php
                         $count++
                         @endphp
+
                         @endforeach
                     @endforeach
                 </tbody>
             </table>
+
+           
+            <style>
+                /* Arredondar os cantos dos inputs */
+                .form-control {
+                    border-radius: 10px;
+                }
+
+                /* Alterar a cor das letras das labels para cinza */
+                .form-group label {
+                    color: #808080; /* Cor cinza */
+                }
+            </style>
+
             </div>
         </div>
     </div>

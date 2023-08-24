@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -199,6 +200,21 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+
+    public function atualizarSenha(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $novaSenha = $request->input('nova_senha');
+        $user->password = Hash::make($novaSenha);
+        // $user->update();
+        
+        if($user->update()) {
+            return response()->json(['mensagem' => 'Senha atualizada com sucesso.']);
+        }
+        
+        return response()->json(['mensagem' => 'Erro ao atualizar.']);
     }
 
     /**

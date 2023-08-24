@@ -26,13 +26,12 @@ Route::resource('user', UserController::class)
 
 Route::get('/user/autorizar/{id}', [UserController::class, 'autorizar']);
 Route::get('/user/mudarperfil/{id}', [UserController::class, 'mudarPerfil']);
-
+Route::post('/user/updatepassword/{id}', [UserController::class, 'atualizarSenha'])
+        ->middleware(['auth', 'verified']);
 
 Route::resource('livro', LivroController::class)
     ->only(['index', 'store', 'create', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
