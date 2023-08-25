@@ -1,14 +1,47 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <div class="text-center">
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }} <i class="fas fa-thumbs-up"></i>
+            </div>
+            @endif
+            
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }} <i class="fas fa-thumbs-down"></i></li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif   
+        </div> 
+
         <form method="POST" action="{{ route('chirps.store') }}">
             @csrf
+
+            <div class="flex space-x-4">
+                <div class="w-1/2">
+                    <label for="dt_ini" class="block font-medium text-gray-700">Data Inicial</label>
+                    <input type="date" name="dt_ini" id="dt_ini" value="{{ old('dt_ini') }}" class="mt-1 p-2 border rounded-md w-full">
+                </div>
+                <div class="w-1/2">
+                    <label for="dt_end" class="block font-medium text-gray-700">Data Final</label>
+                    <input type="date" name="dt_end" id="dt_end" value="{{ old('dt_end') }}" class="mt-1 p-2 border rounded-md w-full">
+                </div>
+            </div>
+            <br>
+
+            <label for="dt_end" class="block font-medium text-gray-700">Destino/Observação</label>
+
             <textarea
-                name="message"
-                placeholder="{{ __('What\'s on your mind?') }}"
+                name="texto"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-            >{{ old('message') }}</textarea>
-            <x-input-error :messages="$errors->get('message')" class="mt-2" />
-            <x-primary-button class="mt-4">{{ __('Chirp') }}</x-primary-button>
+            >{{ old('texto') }}</textarea>
+            <x-input-error :messages="$errors->get('texto')" class="mt-2" />
+            <x-primary-button class="mt-4">{{ __('Salvar') }}</x-primary-button>
         </form>
 
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
@@ -20,14 +53,24 @@
                     <div class="flex-1">
                         <div class="flex justify-between items-center">
                             <div>
-                                <span class="text-gray-800">{{ $chirp->user->name }}</span>
+                                <span class="text-gray-800">Criado em:</span>
                                 <small class="ml-2 text-sm text-gray-600">{{ $chirp->created_at->format('j M Y, g:i a') }}</small>
-                                @unless ($chirp->created_at->eq($chirp->updated_at))
-                                    <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
-                                @endunless
 
+                                <span class="text-gray-800">Data Inicial:</span>
+                                <small class="ml-2 text-sm text-gray-600">{{ \Carbon\Carbon::parse($chirp->dt_ini)->format('d/m/Y') }}</small>
+
+                                <span class="text-gray-800">Término:</span>
+                                <small class="ml-2 text-sm text-gray-600">{{ \Carbon\Carbon::parse($chirp->dt_end)->format('d/m/Y') }}</small>
+                                {{-- @unless ($chirp->created_at->eq($chirp->updated_at))
+                                    <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
+                                @endunless --}}
+                                <br>
+                                <br>
+                                <span class="text-gray-800">Destino/Observação:</span>
+                                <small class="ml-2 text-sm text-gray-600">{{ $chirp->texto }}</small>
                             </div>
-                            @if ($chirp->user->is(auth()->user()))
+                            
+                            {{-- @if ($chirp->user->is(auth()->user()))
                                 <x-dropdown>
                                     <x-slot name="trigger">
                                         <button>
@@ -42,7 +85,7 @@
                                         </x-dropdown-link>
                                     </x-slot>
                                 </x-dropdown>
-                            @endif
+                            @endif --}}
                         </div>
 
                         <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
