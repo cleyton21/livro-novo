@@ -166,10 +166,10 @@ $(document).ready(function() {
         }
 
         // Validar se a senha não é uma sequência numérica de 1 a 8 ou de 8 a 1
-        // if (/12345678|87654321/.test(nova_senha)) {
-        //     alert("A senha não pode ser uma sequência numérica de 1 a 8 ou de 8 a 1.");
-        //     return;
-        // }
+        if (/12345678|87654321/.test(nova_senha)) {
+            alert("A senha não pode ser uma sequência numérica de 1 a 8 ou de 8 a 1.");
+            return;
+        }
 
         if (nova_senha === confirmarSenha) {
             $.ajax({
