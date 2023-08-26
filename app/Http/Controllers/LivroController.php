@@ -4,10 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Livro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class LivroController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+
+            // Verifica se o usuário é um Usuário Comum
+            if ($user && $user->perfil != 'Usuário Comum') {
+                return $next($request);
+            }
+
+            abort(403, 'Acesso não autorizado'); // Acesso negado para outros perfis
+        });
+    }
     /**
      * Display a listing of the resource.
      */

@@ -6,7 +6,9 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        {{-- <x-application-logo class="block h-9 w-auto fill-current text-gray-800" /> --}}
+                        <img src="{{ asset('images/7gac.jpeg') }}" width="40px" height="40px" title="logo" alt="logo">
+
                     </a>
                 </div>
 
@@ -17,10 +19,13 @@
                     </x-nav-link>
                 </div>
 
+                @if(auth()->user()->perfil == "Usuário Comum")
                 <x-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')">
                     {{ __('Meu Livro') }}
                 </x-nav-link>
+                @endif
 
+                @if(auth()->user()->perfil != "Usuário Comum")
                 <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                     {{ __('Usuários') }}
                 </x-nav-link>
@@ -28,6 +33,7 @@
                 <x-nav-link :href="route('livro.index')" :active="request()->routeIs('livro.index')">
                     {{ __('Livro') }}
                 </x-nav-link>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

@@ -139,11 +139,11 @@ $(document).ready(function() {
         $("#myModal").data("id", id);
     });
 
-    // $('#myModal').on('hidden.bs.modal', function() {
-    //     // Limpar os campos do formulário
-    //     $('#nova_senha').val('');
-    //     $('#confirmar_senha').val('');
-    // });
+    $('#myModal').on('hidden.bs.modal', function() {
+        // Limpar os campos do formulário
+        $('#nova_senha').val('');
+        $('#confirmar_senha').val('');
+    });
 
     $('#salvarSenhaBtn').click(function() {
         var nova_senha = $('#nova_senha').val();

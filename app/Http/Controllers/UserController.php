@@ -11,6 +11,20 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+
+            // Verifica se o usuário é um Usuário Comum
+            if ($user && $user->perfil != 'Usuário Comum') {
+                return $next($request);
+            }
+
+            abort(403, 'Acesso não autorizado'); // Acesso negado para outros perfis
+        });
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +34,7 @@ class UserController extends Controller
 
         User::orderByRaw("CASE WHEN status = 2 THEN 2 ELSE 1 END")
             ->orderByRaw("CASE WHEN status = 0 THEN 1 WHEN status = 1 THEN 2 END")
-            ->orderByRaw("FIELD(perfil, 'admin', 'secretaria', 'sargenteante', 'usuario comum')")
+            ->orderByRaw("FIELD(perfil, 'Admin', 'Secretaria', 'Sargenteante', 'Usuário Comum')")
             ->chunk(50, function ($users) use (&$usersChunked) {
                 $usersChunked[] = $users;
             });

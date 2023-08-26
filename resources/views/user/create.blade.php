@@ -36,8 +36,8 @@
                 <option value="Ten Cel">Ten Cel</option>
                 <option value="Maj">Maj</option>
                 <option value="Cap">Cap</option>
-                <option value="1° Ten">1° Ten</option>
-                <option value="2° Ten">2° Ten</option>
+                <option value="1º Ten">1° Ten</option>
+                <option value="2º Ten">2° Ten</option>
                 <option value="Asp">Asp</option>
                 <option value="ST">ST</option>
                 <option value="1º Sgt">1º Sgt</option>
