@@ -23,11 +23,18 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // DB::table('users')->insert([
-        //     // 'postograd' => Str::random(10),
-        //     'name' => Str::random(10),
-        //     'email' => Str::random(10).'@gmail.com',
-        //     'password' => Hash::make('123456'),
-        // ]);
+        DB::table('users')->insert([
+            'postograd' => 'Sd',
+            'nome_guerra' => 'sti',
+            'nome_completo' => 'sti',
+            'email' => 'sti@7gac.eb.mil.br',
+            'cel' => '123456789',
+            'perfil' => 'Admin',
+            'status' => '1',
+            'email_verified_at' => now(),
+            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('7G@CST!'),
+            'remember_token' => Str::random(10),
+        ]);
     }
 }

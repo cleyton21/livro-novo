@@ -189,10 +189,12 @@
                                     </div>
                                 </div>
 
+                                @if ($user->nome_guerra != 'sti')
                                 <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-sm btn-danger delete-user @if($user->status == 2) disabled-link @endif" data-id="{{ $user->id }}">
                                     Excluir
                                     <i class="fas fa-trash"></i>
                                 </a>
+                                @endif
                                 
                             </td>
                         </tr>

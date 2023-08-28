@@ -22,7 +22,7 @@ class LivroFactory extends Factory
         return [
             'dt_ini' => $dataInicial,
             'dt_end' => $this->faker->dateTimeBetween($dataInicial, $dataInicial->format('Y-m-d').' +10 days'),
-            'texto' => fake()->paragraph,
+            'texto' => fake()->text(),
             'usuario_id' => $this->faker->randomElement(User::pluck('id')),
         ];
     }
